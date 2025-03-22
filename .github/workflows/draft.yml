@@ -219,6 +219,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag --force nightly && git push --force origin tag nightly
+      - name: "Checksum"
+        shell: bash
+        run: "for f in yazi-*.zip ya.exe yazi.exe ; do sha256sum $f > $f.sha256 ; done"
       - name: Nightly
         uses: softprops/action-gh-release@v1
         with:
@@ -229,3 +232,6 @@ jobs:
           name: Nightly Build
           body: ${{ env.NIGHTLY_BODY }}
           target_commitish: ${{ github.sha }}
+      - name: "Upload sha256"
+        shell: bash
+        run: gh release upload --clobber nightly *.sha256
