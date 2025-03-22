@@ -221,7 +221,7 @@ jobs:
           git tag --force nightly && git push --force origin tag nightly
       - name: "Checksum"
         shell: bash
-        run: "for f in yazi-*.zip ya.exe yazi.exe ; do sha256sum $f > $f.sha256 ; done"
+        run: "for f in yazi-*.zip ; do sha256sum $f > $f.sha256 ; done"
       - name: Nightly
         uses: softprops/action-gh-release@v1
         with:
