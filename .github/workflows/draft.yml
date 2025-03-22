@@ -233,5 +233,7 @@ jobs:
           body: ${{ env.NIGHTLY_BODY }}
           target_commitish: ${{ github.sha }}
       - name: "Upload sha256"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: gh release upload --clobber nightly *.sha256
